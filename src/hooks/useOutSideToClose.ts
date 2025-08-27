@@ -4,12 +4,13 @@ interface ModalProps {
   ref: React.RefObject<HTMLElement>;
   triggerRef?: React.RefObject<HTMLElement>;
   close: () => void;
+  isLocked?: boolean;
 }
 
-const useOutSideToClose = ({ ref, triggerRef, close }: ModalProps) => {
+const useOutSideToClose = ({ ref, triggerRef, close, isLocked = false }: ModalProps) => {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (triggerRef?.current && triggerRef.current.contains(event.target as Node)) return;
+      if ((triggerRef?.current && triggerRef.current.contains(event.target as Node)) || isLocked) return;
 
       if (ref.current && !ref.current.contains(event.target as Node)) {
         document.body.style.overflow = "unset";
@@ -24,7 +25,7 @@ const useOutSideToClose = ({ ref, triggerRef, close }: ModalProps) => {
 
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
-      if (keyCode !== 27) return;
+      if (keyCode !== 27 || isLocked) return;
       close();
     };
     document.addEventListener("keydown", keyHandler);

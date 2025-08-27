@@ -1,27 +1,30 @@
 import { Check, CrossIcon, Play, Upload, X } from "lucide-react";
-import React, { useCallback, useRef, useState, type ChangeEvent, type DragEvent } from "react";
+import React, { useCallback, useContext, useRef, useState, type ChangeEvent, type DragEvent } from "react";
 import Button from "./Button";
 import MultiSelectTags from "./MultiSelect";
 import useOutSideToClose from "../hooks/useOutSideToClose";
 import { useAxios } from "../hooks/useAxios";
 import { BACKEND_BASE_URL } from "../conts/conts";
+import { Context } from "../hooks/Context";
+import { loader } from "../conts/import";
 
 const UploadModal = ({ handleCloseModal }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [dragActive, setDragActive] = useState(false);
   const [uploadedVideo, setUploadedVideo] = useState<any>(null);
   const [uploadedVideo_file, setUploadedVideo_file] = useState<any>(null);
+  const { setFileName } = useContext(Context);
 
   const fileInputRef = useRef(null);
   const dragCounter = useRef(0);
-  const { data, sendRequest, error, loading } = useAxios({
+  const { sendRequest, error, loading } = useAxios({
     url: `${BACKEND_BASE_URL}/censor`,
     method: "POST",
   });
 
   const modalRef = useRef<HTMLElement | null>(null);
 
-  useOutSideToClose({ ref: modalRef, close: handleCloseModal });
+  useOutSideToClose({ ref: modalRef, close: handleCloseModal, isLocked: loading });
 
   const handleDrag = useCallback((e: DragEvent) => {
     console.log(e.type);
@@ -101,18 +104,31 @@ const UploadModal = ({ handleCloseModal }) => {
 
   const handleFormSubmit = () => {
     const formdata = new FormData();
-    console.log(uploadedVideo);
 
     formdata.append("file", uploadedVideo_file);
     formdata.append("words_to_censor", JSON.stringify(selectedTags));
 
-    sendRequest({ data: formdata });
+    sendRequest({ data: formdata }).then((res) => {
+      setFileName(res.fileName);
+      handleCloseModal();
+    });
   };
 
   return (
     <div className="absolute top-0 h-[100dvh] w-[100dvw] flex items-center justify-center overflow-hidden bg-black/50">
-      <div ref={modalRef} className="w-[700px] bg-white border-2 py-4 z-10 rounded-xl overflow-hidden border-b-7">
-        {uploadedVideo ? (
+      <div
+        ref={modalRef}
+        className="w-[700px] min-h-[400px] bg-white border-2 py-4 z-10 rounded-xl overflow-hidden border-b-7"
+      >
+        {loading ? (
+          <div className="h-full w-full">
+            <img src={loader} className="h-[300px] mx-auto" />
+            <div className="flex items-center mt-2 gap-1 justify-center">
+              <p className="text-base">Cleaning your video</p>
+              <div className="dot-loader mt-0.5"></div>
+            </div>
+          </div>
+        ) : uploadedVideo ? (
           <div className="space-y-4">
             <div key={uploadedVideo.id} className="p-4">
               <div className="flex items-center space-x-4">
@@ -126,7 +142,6 @@ const UploadModal = ({ handleCloseModal }) => {
                   </div>
                 </div>
 
-                {/* Video Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <div>

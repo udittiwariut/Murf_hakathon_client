@@ -3,14 +3,12 @@ import { useState, useCallback } from "react";
 import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 
 type UseAxiosResult<T> = {
-  data: T | null;
   error: string | null;
   loading: boolean;
-  sendRequest: (overrideConfig?: AxiosRequestConfig) => Promise<void>;
+  sendRequest: (overrideConfig?: AxiosRequestConfig) => Promise<any>;
 };
 
 export function useAxios<T = any>(initialConfig: AxiosRequestConfig): UseAxiosResult<T> {
-  const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -34,7 +32,7 @@ export function useAxios<T = any>(initialConfig: AxiosRequestConfig): UseAxiosRe
         }
 
         const response: AxiosResponse<T> = await axios(finalConfig);
-        setData(response.data);
+        return response.data;
       } catch (err: any) {
         setError(err.response?.data?.message || err.message || "Request failed");
       } finally {
@@ -44,5 +42,5 @@ export function useAxios<T = any>(initialConfig: AxiosRequestConfig): UseAxiosRe
     [initialConfig]
   );
 
-  return { data, error, loading, sendRequest };
+  return { error, loading, sendRequest };
 }
