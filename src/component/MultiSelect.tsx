@@ -24,8 +24,8 @@ const MultiSelectTags = ({ selectedTags, setSelectedTags }) => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto mt-5">
-      <h2 className="text-2xl font-semibold">Add words you want to be censored</h2>
+    <div className="w-full max-w-2xl mx-auto mt-2 lg:mt-5">
+      <h2 className="text-lg lg:text-2xl font-semibold">Add words you want to be censored</h2>
 
       <div>
         <div className="flex flex-wrap gap-2 py-3">
@@ -67,7 +67,7 @@ const MultiSelectTags = ({ selectedTags, setSelectedTags }) => {
             </div>
 
             <Button
-              className=" [box-shadow:0px_2px_1px_black] flex gap-1 h-10 px-8"
+              className=" [box-shadow:0px_2px_1px_black] flex gap-1 h-10 lg:h-10 px-8"
               onClick={() => addTag(inputValue)}
               disabled={!inputValue.trim()}
             >

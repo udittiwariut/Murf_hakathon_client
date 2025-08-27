@@ -26,6 +26,7 @@ const UploadModal = ({ handleCloseModal }) => {
 
   useOutSideToClose({ ref: modalRef, close: handleCloseModal, isLocked: loading });
 
+
   const handleDrag = useCallback((e: DragEvent) => {
     console.log(e.type);
 
@@ -118,18 +119,18 @@ const UploadModal = ({ handleCloseModal }) => {
     <div className="absolute top-0 h-[100dvh] w-[100dvw] flex items-center justify-center overflow-hidden bg-black/50">
       <div
         ref={modalRef}
-        className="w-[700px] min-h-[400px] bg-white border-2 py-4 z-10 rounded-xl overflow-hidden border-b-7"
+        className="w-[400px] lg:w-[700px] min-h-[300px]  bg-white border-2 py-1 lg:py-4 z-10 rounded-xl overflow-hidden border-b-7"
       >
         {loading ? (
-          <div className="h-full w-full">
-            <img src={loader} className="h-[300px] mx-auto" />
+          <div className="h-full w-full ">
+            <img src={loader} className="h-[200px] lg:h-[300px] mx-auto" />
             <div className="flex items-center mt-2 gap-1 justify-center">
               <p className="text-base">Cleaning your video</p>
               <div className="dot-loader mt-0.5"></div>
             </div>
           </div>
         ) : uploadedVideo ? (
-          <div className="space-y-4">
+          <div className="space-y-2 lg:space-y-4">
             <div key={uploadedVideo.id} className="p-4">
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0">
@@ -143,9 +144,9 @@ const UploadModal = ({ handleCloseModal }) => {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between ">
                     <div>
-                      <h4 className="text-md font-medium  truncate">{uploadedVideo.name}</h4>
+                      <h4 className="text-md font-medium text-wrap truncate">{uploadedVideo.name}</h4>
                       <p className="text-base text-gray-500">
                         {formatFileSize(uploadedVideo.size)} • {uploadedVideo.type}
                       </p>
@@ -175,14 +176,14 @@ const UploadModal = ({ handleCloseModal }) => {
             <Button
               onClick={handleFormSubmit}
               disabled={selectedTags.length === 0}
-              className="mx-auto disabled:opacity-50 disabled:cursor-not-allowed "
+              className="mx-auto disabled:opacity-50 disabled:cursor-not-allowed my-2"
             >
               Submit
             </Button>
           </div>
         ) : (
           <div
-            className={`relative px-8 py-5 text-center transition-colors duration-200 ${
+            className={`relative px-4 lg:px-8 py-2 lg:py-5 text-center transition-colors duration-200 ${
               dragActive ? "border-black-500 bg-gray-50" : ""
             }`}
             onDragEnter={handleDrag}
@@ -194,19 +195,21 @@ const UploadModal = ({ handleCloseModal }) => {
 
             <div className="space-y-4">
               <div className="flex justify-center">
-                <Upload className={`w-12 h-12 ${dragActive ? "text-black stroke-2" : "text-gray-400"}`} />
+                <Upload
+                  className={`w-10 h-10 lg:w-12 lg:h-12 ${dragActive ? "text-black stroke-2" : "text-gray-400"}`}
+                />
               </div>
 
               <div>
-                <h3 className="text-3xl font-semibold mb-2">
+                <h3 className="text-2xl lg:text-3xl font-semibold">
                   {dragActive ? "Drop your videos here" : "Upload your videos"}
                 </h3>
-                <p className="text-base mb-4">Drag and drop your video files here, or click to browse</p>
+                <p className="text-lg">Drag and drop your video files here, or click to browse</p>
               </div>
               {dragActive == false ? (
                 <Button
                   onClick={onButtonClick}
-                  className="inline-flex items-center  text-disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center text-disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Upload /> Choose File
                 </Button>

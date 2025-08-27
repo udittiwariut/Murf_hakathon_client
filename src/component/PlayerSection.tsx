@@ -11,11 +11,11 @@ const PlayerSection = () => {
   }, [fileName]);
 
   return (
-    <div ref={ref} className={`bg-yellow-pink ${fileName ? "pb-10 mt-40" : ""}`}>
+    <div ref={ref} className={`bg-yellow-pink`}>
       {fileName ? (
-        <div>
-          <div className="text-black font-medium text-5xl mt-2 text-center">Your censored video is ready</div>
-          <div className="flex items-center justify-center w-[700px] h-[400px] bg-white border-2 py-4 z-10 rounded-xl overflow-hidden border-b-7 mx-auto mt-10">
+        <div className="pb-10">
+          <div className="text-black font-medium text-3xl lg:text-5xl text-center">Your censored video is ready</div>
+          <div className="flex items-center justify-center w-[400px] lg:w-[700px] lg:h-[400px] bg-white border-2 py-4 z-10 rounded-xl overflow-hidden border-b-7 mx-auto mt-10">
             <video width="600" controls src={BACKEND_BASE_URL + "/stream/" + fileName} />
           </div>{" "}
         </div>

@@ -7,7 +7,7 @@ interface ModalProps {
   isLocked?: boolean;
 }
 
-const useOutSideToClose = ({ ref, triggerRef, close, isLocked = false }: ModalProps) => {
+const useOutSideToClose = ({ ref, triggerRef, close, isLocked }: ModalProps) => {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if ((triggerRef?.current && triggerRef.current.contains(event.target as Node)) || isLocked) return;
@@ -21,7 +21,7 @@ const useOutSideToClose = ({ ref, triggerRef, close, isLocked = false }: ModalPr
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, isLocked]);
 
   useEffect(() => {
     const keyHandler = ({ keyCode }: KeyboardEvent) => {
@@ -30,7 +30,7 @@ const useOutSideToClose = ({ ref, triggerRef, close, isLocked = false }: ModalPr
     };
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
-  }, [ref]);
+  }, [ref, isLocked]);
 };
 
 export default useOutSideToClose;

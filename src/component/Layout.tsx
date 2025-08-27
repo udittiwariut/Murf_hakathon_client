@@ -7,22 +7,18 @@ import { ContextProvider } from "../hooks/Context";
 const Layout = () => {
   return (
     <ContextProvider>
-      <div className="overflow-x-hidden">
+      <div className="overflow-x-hidden min-h-[100dvh]">
         <div className="relative min-h-[100dvh]">
-          <div className="z-[-1] h-[100dvh] w-[100dvw] bg-yellow-bg absolute">
+          <div className="z-[-1] h-full w-full bg-yellow-bg absolute">
             <HeroSvg />
           </div>
 
-          <img src={Logo} className="h-[150px] mx-auto" />
+          <img src={Logo} className="h-[75px] md:h-[150px] mx-auto" />
 
-          <div className="flex z-10 items-center">
-            <HeroSection />
-          </div>
-
-          <div className="mt-40">
-            <PlayerSection />
-          </div>
+          <HeroSection />
         </div>
+
+        <PlayerSection />
       </div>
     </ContextProvider>
   );

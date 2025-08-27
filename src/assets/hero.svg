@@ -18,7 +18,7 @@
     </filter>
   </defs>
   <g filter="url(#dropshadow)">
-    <use xlink:href="#wavepath" y="302" 
+    <use xlink:href="#wavepath" y="380" 
          fill="#e697e6" 
          stroke="black" 
          stroke-width="1" />
