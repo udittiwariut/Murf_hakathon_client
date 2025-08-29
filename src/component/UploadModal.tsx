@@ -109,7 +109,7 @@ const UploadModal = ({ handleCloseModal }) => {
 
             <Button
               onClick={handleFormSubmit}
-              disabled={censorType == CENSOR_TYPE.CUSTOM && selectedTags.length === 0}
+              disabled={(censorType == CENSOR_TYPE.CUSTOM && selectedTags.length === 0) || getTranscript.loading}
               className="mx-auto disabled:opacity-50 disabled:cursor-not-allowed my-2"
             >
               Submit
