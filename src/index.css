@@ -20,4 +20,8 @@ box-shadow: rgba(0, 0, 0, 0.5) 0px 20px 20px 0px;
   clip-path: inset(0 100% 0 0);
   animation: l1 1.5s steps(4) infinite;
 }
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
 @keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}

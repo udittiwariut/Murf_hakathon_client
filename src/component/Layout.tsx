@@ -19,7 +19,7 @@ const Layout = () => {
               <Links />
             </div>
 
-            <img src={Logo} className="h-[75px] md:h-[150px] mx-auto" />
+            <img src={Logo} className="h-[75px] min-w-[75px] md:h-[150px] mx-auto skeleton" />
             <Links />
           </div>
           <HeroSection />

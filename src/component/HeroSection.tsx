@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Thumbnail } from "../conts/import";
 import { ChevronRightIcon, Upload } from "lucide-react";
 import Button from "./Button";
@@ -21,7 +21,7 @@ const HeroSection = () => {
         <div className="justify-self-center lg:px-10 ">
           <div className="text-gray-800 font-bold text-4xl lg:text-6xl text-center lg:text-left">Censor Video</div>
           <div className="text-black font-normal text-base lg:text-2xl mt-2 text-center lg:text-left">
-            Bleep or soft out out anything inappropriate, offensive, or private in your video
+            Bleep out anything inappropriate, offensive, or private in your video
           </div>
           <div className="mt-5 flex items-center gap-4">
             <Button onClick={openModal} className="flex items-center gap-2 mx-auto lg:mx-0">
@@ -39,7 +39,10 @@ const HeroSection = () => {
         </div>
 
         <div className="justify-self-center mt-5">
-          <img className="w-[400px] lg:w-[700px] rounded-2xl border-2 thumbnail_box-shadow" src={Thumbnail} />
+          <img
+            className="w-[400px] min-h-[200px] lg:w-[700px] rounded-2xl border-2 thumbnail_box-shadow skeleton"
+            src={Thumbnail}
+          />
         </div>
       </div>
       {isModalOpen ? <UploadModal handleCloseModal={handleCloseModal} /> : null}
