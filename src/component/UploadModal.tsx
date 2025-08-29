@@ -44,6 +44,10 @@ const UploadModal = ({ handleCloseModal }) => {
 
     formdata.append("file", uploadedVideo_file, VideoFileId);
     if (censorType === CENSOR_TYPE.CUSTOM) {
+      if (Object.keys(selectedTags).length == 0) {
+        alert("Select At least one word");
+        return;
+      }
       formdata.append("words_to_censor", JSON.stringify(selectedTags));
     }
     sendRequest({ data: formdata }).then((res) => {
@@ -104,12 +108,17 @@ const UploadModal = ({ handleCloseModal }) => {
             </div>
 
             {censorType === CENSOR_TYPE.CUSTOM ? (
-              <MultiSelectTags transcript={transcript} selectedTags={selectedTags} setSelectedTags={setSelectedTags} isLoading={getTranscript.loading} />
+              <MultiSelectTags
+                transcript={transcript}
+                selectedTags={selectedTags}
+                setSelectedTags={setSelectedTags}
+                isLoading={getTranscript.loading}
+              />
             ) : null}
 
             <Button
               onClick={handleFormSubmit}
-              disabled={(censorType == CENSOR_TYPE.CUSTOM && selectedTags.length === 0) || getTranscript.loading}
+              disabled={getTranscript.loading}
               className="mx-auto disabled:opacity-50 disabled:cursor-not-allowed my-2"
             >
               Submit
