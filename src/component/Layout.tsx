@@ -3,6 +3,7 @@ import HeroSection from "./HeroSection";
 import { Logo } from "../conts/import";
 import PlayerSection from "./PlayerSection";
 import { ContextProvider } from "../hooks/Context";
+import Links from "./Links";
 
 const Layout = () => {
   return (
@@ -13,8 +14,14 @@ const Layout = () => {
             <HeroSvg />
           </div>
 
-          <img src={Logo} className="h-[75px] md:h-[150px] mx-auto" />
+          <div className="flex items-start">
+            <div className="opacity-0 pointer-events-none">
+              <Links />
+            </div>
 
+            <img src={Logo} className="h-[75px] md:h-[150px] mx-auto" />
+            <Links />
+          </div>
           <HeroSection />
         </div>
 

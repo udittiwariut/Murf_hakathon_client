@@ -23,10 +23,18 @@ const HeroSection = () => {
           <div className="text-black font-normal text-base lg:text-2xl mt-2 text-center lg:text-left">
             Bleep or soft out out anything inappropriate, offensive, or private in your video
           </div>
-          <div className="mt-5">
+          <div className="mt-5 flex items-center gap-4">
             <Button onClick={openModal} className="flex items-center gap-2 mx-auto lg:mx-0">
               <Upload /> Upload Video <ChevronRightIcon />
             </Button>
+            <a
+              target="_blank"
+              rel="relation_name"
+              className="underline text-base"
+              href="https://drive.google.com/file/d/1nxxS5RZIzSMFyEkzUnuIUxrEQpAxsKtp/view?usp=drive_link"
+            >
+              Use this video for demo
+            </a>
           </div>
         </div>
 

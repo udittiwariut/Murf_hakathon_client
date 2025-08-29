@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Button from "./Button";
 import MultiSelectTags from "./MultiSelect";
 import useOutSideToClose from "../hooks/useOutSideToClose";
@@ -64,8 +64,6 @@ const UploadModal = ({ handleCloseModal }) => {
         const words = new Set();
 
         res[0].forEach((element) => {
-          console.log(element);
-
           words.add(element.word);
         });
 
